@@ -66,4 +66,6 @@ void main() {
   variavelDinamica = 42;
   print("Variável dinâmica alterada: $variavelDinamica");
 
+  
+
 }
