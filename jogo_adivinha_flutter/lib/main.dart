@@ -82,13 +82,14 @@ class _CalculadoraState extends State<Calculadora> {
             SizedBox(height: 16.0),
             Text(_resultado,
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10.0),
-            Visibility(child:
-            ElevatedButton(
-              onPressed: () => _reiniciar(),
-              child: Text('Reiniciar Jogo!'),
-              ),
-            ),
+              SizedBox(height: 10.0),
+              Visibility(
+                visible: acertou,
+                child: ElevatedButton(
+                onPressed: () => _reiniciar(),
+                child: Text('Reiniciar'),
+              )),
+            
             
           ],
         ),
