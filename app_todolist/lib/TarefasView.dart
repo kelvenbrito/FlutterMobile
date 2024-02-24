@@ -2,11 +2,9 @@ import 'package:app_todolist/TarefasController.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class TarefasScreen extends StatelessWidget {
   // Controlador para o campo de texto de nova tarefa
   final TextEditingController _controller = TextEditingController();
-
 
 
   @override
@@ -30,7 +28,8 @@ class TarefasScreen extends StatelessWidget {
                 suffixIcon: IconButton(
                   onPressed: () {
                     // Chamando o método adicionarTarefa do Provider para atualizar o estado
-                    Provider.of<TarefasController>(context, listen: false).adicionarTarefa(_controller.text);
+                    Provider.of<TarefasController>(context, listen: false)
+                        .adicionarTarefa(_controller.text);
                     // Limpar o campo de texto após adicionar a tarefa
                     _controller.clear();
                   },
@@ -49,7 +48,6 @@ class TarefasScreen extends StatelessWidget {
                     return ListTile(
                       // Exibição do texto da tarefa
                       title: Text(model.tarefas[index].descricao),
-    
                       // Checkbox para marcar a tarefa como concluída
                       trailing: Checkbox(
                         value: model.tarefas[index].concluida,

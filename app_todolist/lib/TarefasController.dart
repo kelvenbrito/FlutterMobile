@@ -9,9 +9,9 @@ class TarefasController extends ChangeNotifier{
   List<Tarefas> get tarefas => _tarefas;
 
   //Método para adicionar uma nova tarefa á lista
-  void adicionarTarefa(String descricao, DateTime){
+  void adicionarTarefa(String descricao){
     if(descricao.trim().isNotEmpty){
-    _tarefas.add(Tarefas(descricao, false,getData()));
+    _tarefas.add(Tarefas(descricao, false));
     }
     //Notifica os ouvintes (Widgets) sobre a mudança no estado
   notifyListeners();
@@ -36,8 +36,6 @@ class TarefasController extends ChangeNotifier{
       notifyListeners();
     }
   }
-  String getData(){
-    return DateFormat('dd/MM/yy');
-  }
-}
 
+
+}
