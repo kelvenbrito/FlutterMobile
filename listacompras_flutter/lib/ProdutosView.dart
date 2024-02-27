@@ -48,59 +48,81 @@ class ProdutosScreen extends StatelessWidget {
               decoration: InputDecoration(labelText: 'Preço'),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  // Lógica para o botão "Adicionar"
+                  int? quantidade = int.tryParse(_quantidade.text);
+                  double? preco = double.tryParse(_preco.text);
 
-         ElevatedButton(
-            onPressed: () {
-              int? quantidade = int.tryParse(_quantidade.text);
-              double? preco = double.tryParse(_preco.text);
+                  if (quantidade != null && preco != null) {
+                    Provider.of<ProdutosController>(context, listen: false)
+                        .adicionarProduto(
+                            _codigo.text, _descricao.text, quantidade, preco);
 
-              if (quantidade != null && preco != null) {
-                Provider.of<ProdutosController>(context, listen: false)
-                    .adicionarProduto(
-                        _codigo.text, _descricao.text, quantidade, preco);
-
-                _codigo.clear();
-                _descricao.clear();
-                _quantidade.clear();
-                _preco.clear();
-              } else {
-                print('Erro: Valor inválido para quantidade ou preço.');
-              }
-            },
-            child: Text('Adicionar'),
+                    _codigo.clear();
+                    _descricao.clear();
+                    _quantidade.clear();
+                    _preco.clear();
+                  } else {
+                    print('Erro: Valor inválido para quantidade ou preço.');
+                  }
+                },
+                child: Text('Adicionar'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Lógica para o botão "Editar"
+                  // ...
+                },
+                child: Text('Editar'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Lógica para o botão "Excluir"
+                  // ...
+                },
+                child: Text('Excluir'),
+              ),
+            ],
           ),
 
           Expanded(
             child: Card(
-              child: Consumer<ProdutosController>(
-                builder: (context, model, child) {
-                  return DataTable(
-                    columns: const <DataColumn>[
-                      DataColumn(
-                        label: Text('Código'),
-                      ),
-                      DataColumn(
-                        label: Text('Descrição'),
-                      ),
-                      DataColumn(
-                        label: Text('Quantidade'),
-                      ),
-                      DataColumn(
-                        label: Text('Preço'),
-                      ),
-                    ],
-                    rows: model.produtos.map((produto) {
-                      return DataRow(
-                        cells: [
-                          DataCell(Text('${produto.codigo}')),
-                          DataCell(Text('${produto.descricao}')),
-                          DataCell(Text('${produto.quantidade}')),
-                          DataCell(Text('${produto.preco}')),
-                        ],
-                      );
-                    }).toList(),
-                  );
-                },
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Consumer<ProdutosController>(
+                  builder: (context, model, child) {
+                    return DataTable(
+                      columns: const <DataColumn>[
+                        DataColumn(
+                          label: Text('Código'),
+                        ),
+                        DataColumn(
+                          label: Text('Descrição'),
+                        ),
+                        DataColumn(
+                          label: Text('Quantidade'),
+                        ),
+                        DataColumn(
+                          label: Text('Preço'),
+                        ),
+                      ],
+                      rows: model.produtos.map((produto) {
+                        return DataRow(
+                          cells: [
+                            DataCell(Text('${produto.codigo}')),
+                            DataCell(Text('${produto.descricao}')),
+                            DataCell(Text('${produto.quantidade}')),
+                            DataCell(Text('${produto.preco}')),
+                          ],
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
               ),
             ),
           ),
