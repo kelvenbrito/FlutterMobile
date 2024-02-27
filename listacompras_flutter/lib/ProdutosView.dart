@@ -49,7 +49,7 @@ class ProdutosScreen extends StatelessWidget {
             ),
           ),
 
-          ElevatedButton(
+         ElevatedButton(
             onPressed: () {
               int? quantidade = int.tryParse(_quantidade.text);
               double? preco = double.tryParse(_preco.text);
@@ -70,64 +70,40 @@ class ProdutosScreen extends StatelessWidget {
             child: Text('Adicionar'),
           ),
 
-          // Lista de produtos usando um Consumer do Provider para atualização automática
           Expanded(
             child: Card(
               child: Consumer<ProdutosController>(
                 builder: (context, model, child) {
-                  itemCount:
-                  model.produtos.length;
-                  itemBuilder:
-                  (context, index) {
-                    return DataRow(
-                      cells: [
-                        DataCell(Text('${model.produtos[index].codigo}')),
-                        DataCell(Text('${model.produtos[index].descricao}')),
-                        DataCell(Text('${model.produtos[index].quantidade}')),
-                        DataCell(Text('${model.produtos[index].preco}')),
-                      ],
-                    );
-                  };
+                  return DataTable(
+                    columns: const <DataColumn>[
+                      DataColumn(
+                        label: Text('Código'),
+                      ),
+                      DataColumn(
+                        label: Text('Descrição'),
+                      ),
+                      DataColumn(
+                        label: Text('Quantidade'),
+                      ),
+                      DataColumn(
+                        label: Text('Preço'),
+                      ),
+                    ],
+                    rows: model.produtos.map((produto) {
+                      return DataRow(
+                        cells: [
+                          DataCell(Text('${produto.codigo}')),
+                          DataCell(Text('${produto.descricao}')),
+                          DataCell(Text('${produto.quantidade}')),
+                          DataCell(Text('${produto.preco}')),
+                        ],
+                      );
+                    }).toList(),
+                  );
                 },
               ),
             ),
           ),
-
-          DataTable(
-            columns: const <DataColumn>[
-              DataColumn(
-                label: Text('Código'),
-              ),
-              DataColumn(
-                label: Text('Descrição'),
-              ),
-              DataColumn(
-                label: Text('Quantidade'),
-              ),
-              DataColumn(
-                label: Text('Preço'),
-              ),
-            ],
-            rows: const <DataRow>[
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('1')),
-                  DataCell(Text('Produto A')),
-                  DataCell(Text('10')),
-                  DataCell(Text('20.00')),
-                ],
-              ),
-              DataRow(
-                cells: <DataCell>[
-                  DataCell(Text('2')),
-                  DataCell(Text('Produto B')),
-                  DataCell(Text('5')),
-                  DataCell(Text('15.00')),
-                ],
-              ),
-              // Adicione mais linhas conforme necessário
-            ],
-          )
         ],
       ),
     );
