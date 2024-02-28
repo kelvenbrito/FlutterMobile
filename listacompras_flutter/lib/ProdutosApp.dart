@@ -8,7 +8,7 @@ class  ProdutosApp extends StatelessWidget{
     return MaterialApp(
       //Definido a tela inicial como a Tarefa
       home: ChangeNotifierProvider(
-        create: (context) => ProdutosController(),
+        create: (context) => ProdutosController(context),
         child: ProdutosScreen(),
       ),
     );

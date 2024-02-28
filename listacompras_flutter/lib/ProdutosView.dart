@@ -49,46 +49,56 @@ class ProdutosScreen extends StatelessWidget {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
                 onPressed: () {
                   // Lógica para o botão "Adicionar"
-                  int? quantidade = int.tryParse(_quantidade.text);
-                  double? preco = double.tryParse(_preco.text);
-
-                  if (quantidade != null && preco != null) {
                     Provider.of<ProdutosController>(context, listen: false)
                         .adicionarProduto(
-                            _codigo.text, _descricao.text, quantidade, preco);
+                            _codigo.text, _descricao.text, _quantidade.text, _preco.text);
 
                     _codigo.clear();
                     _descricao.clear();
                     _quantidade.clear();
                     _preco.clear();
-                  } else {
-                    print('Erro: Valor inválido para quantidade ou preço.');
-                  }
+                 
                 },
                 child: Text('Adicionar'),
               ),
               ElevatedButton(
                 onPressed: () {
-                  // Lógica para o botão "Editar"
-                  // ...
+                  // Lógica para o botão "editar"
+                    Provider.of<ProdutosController>(context, listen: false)
+                        .editarProduto(
+                            _codigo.text, _descricao.text, _quantidade.text, _preco.text);
+                    
+                      _codigo.clear();
+                    _descricao.clear();
+                    _quantidade.clear();
+                    _preco.clear();
+                            
+                
+               
                 },
                 child: Text('Editar'),
               ),
               ElevatedButton(
                 onPressed: () {
                   // Lógica para o botão "Excluir"
-                  // ...
+
+                  Provider.of<ProdutosController>(context, listen: false)
+                      .excluirProduto(_codigo.text);
+                      
+                    _codigo.clear();
+                    _descricao.clear();
+                    _quantidade.clear();
+                    _preco.clear();
                 },
                 child: Text('Excluir'),
               ),
             ],
           ),
-
           Expanded(
             child: Card(
               child: SingleChildScrollView(
