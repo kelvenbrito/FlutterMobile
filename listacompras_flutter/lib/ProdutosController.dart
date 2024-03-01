@@ -52,6 +52,7 @@ class ProdutosController extends ChangeNotifier {
 
   //Método para excluir uma tarefa com base no índice
   void excluirProduto(String codigoDigitado) {
+   
     for (int i = 0; i < _produtos.length; i++) {
       if (_produtos[i].codigo == codigoDigitado) {
         _produtos.removeWhere((produto) => produto.codigo == codigoDigitado);
@@ -75,4 +76,7 @@ class ProdutosController extends ChangeNotifier {
       ),
     );
   }
+
+
+  
 }
