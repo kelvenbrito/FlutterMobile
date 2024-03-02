@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:app_carros/Contoller.dart';
 import 'package:app_carros/TelaDetalheCarro.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:provider/provider.dart';
 class telaListaCarros extends StatelessWidget {
   final CarroController controllerCarros;
   telaListaCarros(this.controllerCarros);
+  get _modelo => _modelo;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +20,6 @@ class telaListaCarros extends StatelessWidget {
       // Corpo principal do aplicativo
       body: Column(
         children: [
-          // Campo de texto para adicionar novos carros
-
           // Lista de tarefas usando um Consumer do Provider para atualização automática
           Expanded(
             child: 
@@ -49,8 +50,15 @@ class telaListaCarros extends StatelessWidget {
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(onPressed: showDialog(builder: ),),
+      //Adicionar um FloatButton
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        _adicionarCarro(context);
+      }, child: Icon(Icons.add),),
     );
+  }
+  
+  void _adicionarCarro(BuildContext context) {
+    showDialog(context: context, builder: (BuildContext (context) => ));
   }
 }
 
