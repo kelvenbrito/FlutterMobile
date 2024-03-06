@@ -30,9 +30,14 @@ class MyApp extends StatelessWidget {
 // Container contendo um Row (linha horizontal) de dois Textwidgets
 
             Container(
+              color: Colors.lightBlue, // Cor de fundo do Container
+              padding: EdgeInsets.all(16.0), // Espaçamento interno do Containe
               child: Row(
                 children: [
-                  Column(children: [Text('Filho Aninhado 1.1'), Text('Filho Aninhado 1.2')]),
+                  Column(children: [
+                    Text('Filho Aninhado 1.1'),
+                    Text('Filho Aninhado 1.2')
+                  ]),
                   SizedBox(width: 50),
                   Column(children: [Text('Filho Aninhado 2')]),
                 ],

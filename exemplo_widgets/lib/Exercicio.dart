@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
             Container(
               child: Row(
                 children: [
-                  Column(children: [Text('Nome: Joao'), Text('Idade: 16')]),
+                  Column(children: [Text('Nome: Joao'), Text('Idade: 16'), Text('Brasil')]),
                
                   Column(children: [Text('Filho Aninhado 2')]),
                 ],
