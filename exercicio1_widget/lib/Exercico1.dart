@@ -23,15 +23,16 @@ class MyApp extends StatelessWidget {
             ),
 
             // Corpo da tela, composto por um Column (coluna vertical) de widgets
-            body: Column(
+            body: Center(
+                child: Column(
               children: [
                 Container(
                     color: Colors.lightBlue, // Cor de fundo do Container
                     padding:
-                        EdgeInsets.all(16.0), // Espaçamento interno do Containe
+                        EdgeInsets.all(20.0), // Espaçamento interno do Containe
                     child: Text(
                       'Widget 1',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 0, 0, 0), ),
                     )),
 
                 SizedBox(height: 20), // Espaço entre os widgets
@@ -41,10 +42,10 @@ class MyApp extends StatelessWidget {
                     color: Color.fromARGB(
                         255, 56, 197, 24), // Cor de fundo do Container
                     padding:
-                        EdgeInsets.all(16.0), // Espaçamento interno do Containe
+                        EdgeInsets.all(40.0), // Espaçamento interno do Containe
                     child: Text(
                       'Widget 2',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20,color: Color.fromARGB(255, 0, 0, 0)),
                     )),
 
                 SizedBox(height: 20), // Espaço entre os widgets
@@ -53,12 +54,12 @@ class MyApp extends StatelessWidget {
                     color: Color.fromARGB(
                         255, 220, 57, 13), // Cor de fundo do Container
                     padding:
-                        EdgeInsets.all(16.0), // Espaçamento interno do Containe
+                        EdgeInsets.all(80), // Espaçamento interno do Containe
                     child: Text(
-                      'Widget 2',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      'Widget 3',
+                      style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 0, 0, 0)),
                     )),
               ],
-            )));
+            ))));
   }
 }
