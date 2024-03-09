@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(children: [
                       Text('coluna 1'),
@@ -40,21 +41,22 @@ class MyApp extends StatelessWidget {
                     ]),
                     Column(children: [
                       Text('coluna 2'),
-                      Image.asset('img/imagem2.jpg'),
+                      Image.asset('img/img4.jpg'),
                       Icon(Icons.access_alarm),
                     ]),
                   ],
                 ),
-                Row(children: [
+                Row(
+                  children: [
                   Column(children: [
                     Text('coluna 1'),
                     Icon(Icons.beach_access_outlined),
-                    Image.asset('assets/img/imagem3.jpg'),
+                    Image.asset('img/img4.jpg'),
                   ]),
                     Column(children: [
                     Text('coluna 2'),
-                    Icon(Icons.beach_access_outlined),
-                    Image.asset('assets/img/imagem3.jpg'),
+                    Icon(Icons.beach_access_rounded),
+                    Image.asset('img/img4.jpg'),
                   ]),
                 ]),
               ],
