@@ -28,9 +28,11 @@ class MyApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                     Text('linha 1'),
                     Column(children: [
+                      
                       Text('coluna 1'),
                       Icon(Icons.star),
                       Image.network(
@@ -41,22 +43,38 @@ class MyApp extends StatelessWidget {
                     ]),
                     Column(children: [
                       Text('coluna 2'),
-                      Image.asset('img/img4.jpg'),
+                      Image.asset(
+                        'img/imagem2.jpg',
+                        width: 50, // largura desejada
+                        height: 50, // altura desejada,
+                      ),
                       Icon(Icons.access_alarm),
+                    
                     ]),
+                    
                   ],
+                      
                 ),
+                SizedBox(height: 80), // Espaço entre as linhas
+       
                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                     Text('linha 2'),
                   Column(children: [
-                    Text('coluna 1'),
                     Icon(Icons.beach_access_outlined),
-                    Image.asset('img/img4.jpg'),
+                    Image.asset(
+                      'img/imagem2.png',
+                      width: 50, // largura desejada
+                      height: 50, // altura desejada,
+                    ),
                   ]),
-                    Column(children: [
-                    Text('coluna 2'),
+                  Column(children: [
                     Icon(Icons.beach_access_rounded),
-                    Image.asset('img/img4.jpg'),
+                    Image.asset('img/img4.jpg',
+                      width: 50, // largura desejada
+                       height: 50,   // altura desejada,
+                    ),
                   ]),
                 ]),
               ],

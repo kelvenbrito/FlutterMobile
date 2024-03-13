@@ -59,6 +59,9 @@ flutter:
   uses-material-design: true
   assets:
     - img/imagem2.jpg
+    - img/imagem2.png
+    - img/imagem3.jpg
+    - img/img4.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
