@@ -26,7 +26,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -37,12 +36,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Exercicio 4'),
+        title: Text('Exercicio 3'),
       ),
       body: Center(
-       
+        child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Pagina inicial',
+              style: TextStyle(
+                fontSize: 40,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+            )),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

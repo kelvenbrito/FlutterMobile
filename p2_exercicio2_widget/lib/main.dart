@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ListView Builder Example',
+      title: 'ListView Builder',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
