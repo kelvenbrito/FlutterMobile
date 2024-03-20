@@ -1,4 +1,4 @@
-package com.example.p2_exercicio5_widget
+package com.example.exemplo_persistencia
 
 import io.flutter.embedding.android.FlutterActivity
 

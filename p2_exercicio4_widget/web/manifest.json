@@ -1,6 +1,6 @@
 {
-    "name": "p2_exercicio4_widget",
-    "short_name": "p2_exercicio4_widget",
+    "name": "exercicio4_widget",
+    "short_name": "exercicio4_widget",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
