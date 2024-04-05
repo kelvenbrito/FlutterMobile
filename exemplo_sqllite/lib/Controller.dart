@@ -1,5 +1,6 @@
 //montar a estrutura para banco de dados(CRUD)
 
+import 'package:exemplo_sqllite/Model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -26,7 +27,7 @@ class BancoDadosCrud {
     );
   }
   // Método para criar um novo contato no banco de dados
-  Future<void> create(ContactModel model) async {
+  Future<void> create(ContatoModel model) async {
     try {
       final Database db = await _getDatabase();
       await db.insert(
@@ -39,7 +40,7 @@ class BancoDadosCrud {
 
 
   // Método para obter todos os contatos do banco de dados
-  Future<List<ContactModel>> getContacts() async {
+  Future<List<ContatoModel>> getContacts() async {
     try {
       final Database db = await _getDatabase();
       final List<Map<String, dynamic>> maps =
@@ -49,8 +50,8 @@ class BancoDadosCrud {
       return List.generate(
         maps.length,
         (i) {
-          return ContactModel.fromMap(maps[
-              i]); // Converte os resultados da consulta para objetos ContactModel
+          return ContatoModel.fromMap(maps[
+              i]); // Converte os resultados da consulta para objetos ContatoModel
         },
       );
     } catch (ex) {
@@ -61,7 +62,7 @@ class BancoDadosCrud {
 
 
   // Método para atualizar um contato no banco de dados
-  Future<void> update(ContactModel model) async {
+  Future<void> update(ContatoModel model) async {
     try {
       final Database db = await _getDatabase();
       await db.update(
