@@ -14,10 +14,27 @@ class CadastroModel {
     required this.senha,
     required this.dataNasc,
     required this.telefone,
-
   });
 
   //mapeamento
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'nome': nome,
+      'email': email,
+      'senha': senha,
+      'datanasc': dataNasc,
+      'telefone': telefone,
+    };
+  }
 
-  
+  factory CadastroModel.fromMap(Map<String, dynamic> map) {
+    return CadastroModel(
+        id: map['id'],
+        nome: map['nome'],
+        email: map['email'],
+        senha: map[' senha'],
+        dataNasc: map['dataNasc'],
+        telefone: map['telefone']);
+  }
 }
