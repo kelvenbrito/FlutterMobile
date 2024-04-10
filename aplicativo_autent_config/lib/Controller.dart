@@ -1,5 +1,5 @@
 //criar um metodo do tipo bool
-import 'package:aplicativo_autent_config/Model.dart';
+import 'package:aplicativo_autent_config/CadastroModel.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -35,18 +35,19 @@ class BancoDadosUsuario {
     }
   }
 
-// Método para acesso do usuario a pagina interna
-// Future<bool> acessoInterno(user,senha) async{
-//   bool x= false;
-//   final Database db = await _getDatabase();
-//   var retorno = db.rawQuery('SElect * from where user = 'user 'and senha =' senha);
-//   if(retorno>0){
-// x=true;
-//   }else{
-
-//   }
-//   return x;
-// }
+// Método para acesso do usuário à página interna
+Future<bool> acessoInterno(String user, String senha) async {
+  bool x = false;
+  final Database db = await _getDatabase();
+  List<Map<String, dynamic>> result = await db.rawQuery(
+    'SELECT * FROM $TABLE_NOME WHERE email = ? AND senha = ?',
+    [user, senha],
+  );
+  if (result.isNotEmpty) {
+    x = true;
+  }
+  return x;
+}
 
   // Método para atualizar um contato no banco de dados
   Future<void> update(CadastroModel model) async {

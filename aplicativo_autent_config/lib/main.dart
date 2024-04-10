@@ -1,4 +1,5 @@
-import 'package:aplicativo_autent_config/View.dart';
+import 'package:aplicativo_autent_config/CadastroView.dart';
+import 'package:aplicativo_autent_config/LoginView.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -12,7 +13,7 @@ class MyApp  extends StatelessWidget{
     return MaterialApp(
       title: "Pagina inicial",
       theme: ThemeData(primarySwatch: Colors.amber),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }

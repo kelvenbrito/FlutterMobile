@@ -1,6 +1,6 @@
 class CadastroModel {
   //atributos
-  int id;
+  int? id;
   String nome;
   String email;
   String senha;
@@ -8,7 +8,7 @@ class CadastroModel {
   String telefone;
 
   CadastroModel({
-    required this.id,
+    this.id,
     required this.nome,
     required this.email,
     required this.senha,
@@ -19,7 +19,6 @@ class CadastroModel {
   //mapeamento
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'nome': nome,
       'email': email,
       'senha': senha,
