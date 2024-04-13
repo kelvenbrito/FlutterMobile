@@ -35,26 +35,28 @@ class BancoDadosCrud {
     }
   }
 
-  // Método para obter d ouser do banco de dados
+  // Método para buscar o user do banco de dados
   Future<User?> getUser(String email, String senha) async {
     try {
       final Database db = await _chamarBanco();
       final List<Map<String, dynamic>> maps =
-          await db.query(TABLE_NOME, 
+          await db.query(TABLE_NOME,
           where: 'email = ? AND senha = ?',
           whereArgs: [email,senha]
           ); // Consulta todos os contatos na tabela
-  if (maps.isNotEmpty) {
-    return User.fromMap(maps.first);
-    }else{
-      return null;
-    }
+
+      if (maps.isNotEmpty){
+        return User.fromMap(maps.first);
+      }else{
+        return null;
+      }
     } catch (ex) {
       print(ex);
       return null;
     }
   }
- //CRIAR UM MÉTODO DO TIPO BOOL
+
+  //CRIAR UM MÉTODO DO TIPO BOOL
   Future<bool> existsUser(String email, String senha) async {
     bool acessoPermitido = false;
     try{
@@ -76,5 +78,4 @@ class BancoDadosCrud {
       return acessoPermitido;
     }
   }
-
 }

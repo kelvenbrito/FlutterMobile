@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sa2_correcao/ViewLogin.dart';
 
-void main(){
-  runApp(Myapp());
+void main() {
+  runApp(MyApp());
 }
-class Myapp extends StatelessWidget {
-  const Myapp({super.key});
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
