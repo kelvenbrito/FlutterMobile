@@ -12,94 +12,85 @@ class ListaPage extends StatefulWidget {
 }
 
 class _ListaPageState extends State<ListaPage> {
-  //Atributos
   late SharedPreferences _prefs;
   final String email;
-  List<String> tasks = []; // Lista de tarefas
-  
-  final TextEditingController _controller =
-      TextEditingController(); // Controlador de texto para o campo de entrada de nova tarefa
-   
+  List<String> tasks = [];
+  List<bool> taskChecked = []; // Lista de estados dos checkboxes
+  final TextEditingController _controller = TextEditingController();
+
   _ListaPageState({required this.email});
 
-
-  //Métodos
   @override
   void initState() {
     super.initState();
     _loadPreferences();
   }
 
-  Future<void> _loadPreferences() async {
-    _prefs = await SharedPreferences.getInstance();
-    setState(() {
-      tasks = _prefs.getStringList('${email}tasks') ??
-          []; // Carrega as tarefas armazenadas ou uma lista vazia se não houver tarefas
-    });
-  }
+Future<void> _loadPreferences() async {
+  _prefs = await SharedPreferences.getInstance();
+  setState(() {
+    tasks = _prefs.getStringList('${email}tasks') ?? [];
+    taskChecked = List<bool>.generate(tasks.length, (index) => false); // Inicializa com false
+  });
+}
 
   Future<void> saveTasks() async {
-    SharedPreferences prefs = await SharedPreferences
-        .getInstance(); // Obtém as preferências compartilhadas
-    await prefs.setStringList('${email}tasks',
-        tasks); // Salva a lista de tarefas nas preferências compartilhadas
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('${email}tasks', tasks);
   }
 
-  // Método para editar a tarefa
-void _editTask(BuildContext context, int index) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      String editedTask = tasks[index];
-      return AlertDialog(
-        title: Text('Editar Tarefa'),
-        content: TextField(
-          onChanged: (value) {
-            editedTask = value;
-          },
-          controller: TextEditingController(text: tasks[index]),
-          decoration: InputDecoration(
-            hintText: 'Digite a tarefa',
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              setState(() {
-                tasks[index] = editedTask;
-                saveTasks();
-                Navigator.of(context).pop();
-              });
+  void _editTask(BuildContext context, int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        String editedTask = tasks[index];
+        return AlertDialog(
+          title: Text('Editar Tarefa'),
+          content: TextField(
+            onChanged: (value) {
+              editedTask = value;
             },
-            child: Text('Salvar'),
+            controller: TextEditingController(text: tasks[index]),
+            decoration: InputDecoration(
+              hintText: 'Digite a tarefa',
+            ),
           ),
-        ],
-      );
-    },
-  );
-}
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  tasks[index] = editedTask;
+                  saveTasks();
+                  Navigator.of(context).pop();
+                });
+              },
+              child: Text('Salvar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-     bool checked = false;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de Tarefas'), // Título da barra de aplicativos
+        title: Text('Lista de Tarefas'),
       ),
       body: ListView.builder(
         itemCount: tasks.length,
         itemBuilder: (context, index) {
           return ListTile(
             leading: Checkbox(
-              value: checked,
-              onChanged: (bool? newvalue) {
+              value: taskChecked[index] ?? false, // Use o estado armazenado ou false se não houver
+              onChanged: (bool? newValue) {
                 setState(() {
-                  checked = newvalue!;
+                  taskChecked[index] = newValue ?? false; // Atualize o estado
                   saveTasks();
                 });
               },
             ),
-            
             title: Text(tasks[index]),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -107,7 +98,7 @@ void _editTask(BuildContext context, int index) {
                 IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () {
-                  _editTask(context, index);
+                    _editTask(context, index);
                   },
                 ),
                 IconButton(
@@ -115,6 +106,7 @@ void _editTask(BuildContext context, int index) {
                   onPressed: () {
                     setState(() {
                       tasks.removeAt(index);
+                      taskChecked.removeAt(index); // Remova o estado correspondente
                       saveTasks();
                     });
                   },
@@ -130,32 +122,32 @@ void _editTask(BuildContext context, int index) {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('Nova Tarefa'), // Título do diálogo de nova tarefa
+                title: Text('Nova Tarefa'),
                 content: TextField(
-                  controller:
-                      _controller, // Controlador de texto para o campo de entrada
+                  controller: _controller,
                   decoration: InputDecoration(
-                      hintText: 'Digite a tarefa'), // Dica no campo de entrada
+                    hintText: 'Digite a tarefa',
+                  ),
                 ),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () {
                       setState(() {
-                        tasks.add(
-                            _controller.text); // Adiciona a nova tarefa à lista
-                        saveTasks(); // Salva as tarefas atualizadas
-                        _controller.clear(); // Limpa o campo de entrada
-                        Navigator.of(context).pop(); // Fecha o diálogo
+                        tasks.add(_controller.text);
+                        taskChecked.add(false); // Adicione um novo estado
+                        saveTasks();
+                        _controller.clear();
+                        Navigator.of(context).pop();
                       });
                     },
-                    child: Text('Adicionar'), // Botão para adicionar a tarefa
+                    child: Text('Adicionar'),
                   ),
                 ],
               );
             },
           );
         },
-        child: Icon(Icons.add), // Ícone do botão de adicionar
+        child: Icon(Icons.add),
       ),
     );
   }
