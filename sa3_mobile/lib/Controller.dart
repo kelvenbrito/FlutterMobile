@@ -22,19 +22,19 @@ class BancoDadosCrud {
     );
   }
 
-  // Método para criar um novo contato no banco de dados
+  // Método para criar um novo usuario no banco de dados
   Future<void> create(User user) async {
     try {
       final Database db = await _getDatabase();
       await db.insert(
-          TABLE_NOME, user.toMap()); // Insere o contato no banco de dados
+          TABLE_NOME, user.toMap()); // Insere o usuario no banco de dados
     } catch (ex) {
       print(ex);
       return;
     }
   }
 
-  // Método para buscar o user do banco de dados
+  // Método para buscar o usuario do banco de dados
   Future<User?> getUser(String email, String senha) async {
     try {
       final Database db = await _getDatabase();
@@ -73,4 +73,22 @@ class BancoDadosCrud {
       return acessoPermitido;
     }
   }
+
+// Método para consulta de email já cadastrado
+  Future<User?> consultaEmail(String email) async {
+  try {
+    final Database db = await _getDatabase();
+    final List<Map<String, dynamic>> maps = await db.query(TABLE_NOME,
+        where: 'email = ?', whereArgs: [email]); // Consulta na tabela pelo e-mail
+
+    if (maps.isNotEmpty) {
+      return User.fromMap(maps.first);
+    } else {
+      return null;
+    }
+  } catch (ex) {
+    print(ex);
+    return null;
+  }
+}
 }

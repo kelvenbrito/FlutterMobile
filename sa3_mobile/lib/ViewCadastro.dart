@@ -36,11 +36,20 @@ class _CadastroPageState extends State<CadastroPage> {
 
     BancoDadosCrud bancoDados = BancoDadosCrud();
     try {
-      bancoDados.create(user);
+// Verifica se o e-mail já está cadastrado
+    User? existingUser = await bancoDados.consultaEmail(email);
+    if (existingUser != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Usuário cadastrado com sucesso!')),
+        SnackBar(content: Text('E-mail já cadastrado!')),
       );
-      Navigator.pop(context); // Redireciona para a tela de login
+      return; // Não continua o processo de cadastro
+    }
+
+    bancoDados.create(user); //Cadastra o usurio no banco de dados
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Usuário cadastrado com sucesso!')),
+    );
+    Navigator.pop(context); // Redireciona para a tela de login
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erro ao cadastrar usuário: $e')),

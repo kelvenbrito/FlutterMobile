@@ -26,43 +26,49 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _senhaController = TextEditingController();
+  final _formKey = GlobalKey<FormState>(); // Chave global para o formulário
+  TextEditingController _emailController = TextEditingController(); // Controlador para o campo de email
+  TextEditingController _senhaController = TextEditingController(); // Controlador para o campo de senha
   bool _loading = false;
 
   void _login() async {
-    if (_formKey.currentState!.validate()) {
-      String email = _emailController.text;
-      String senha = _senhaController.text;
+    if (_formKey.currentState!.validate()) { // Verifica se a chave é válido
+      String email = _emailController.text; // Obtém o valor do campo de email
+      String senha = _senhaController.text; // Obtém o valor do campo de senha
 
       setState(() {
-        _loading = true;
+        _loading = true; // Define o _loading como verdadeiro durante o login
       });
 
-      BancoDadosCrud bancoDados = BancoDadosCrud();
+      BancoDadosCrud bancoDados = BancoDadosCrud(); // Instancia a classe de controle de banco de dados
       try {
-        User? user = await bancoDados.getUser(email, senha);
+        User? user = await bancoDados.getUser(email, senha); // Obtém o usuário do banco de dados
         if (user != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login realizado com sucesso!')),
+    );
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ListaPage(email: user.email),
+              // Navega para a página de lista após o login bem-sucedido
+              builder: (context) => ListaPage(email: user.email),   
             ),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            // Exibe uma mensagem se o email ou senha estiverem incorretos
             content: Text('Email ou senha incorretos'),
           ));
         }
       } catch (e) {
-        print('Erro durante o login: $e');
+        print('Erro  no login: $e');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Erro durante o login. Tente novamente mais tarde.'),
+          // Exibe uma mensagem se o email ou senha estiverem incorretos
+          content: Text('Erro no login. Tente novamente.'),
         ));
       } finally {
         setState(() {
-          _loading = false;
+          _loading = false; // Define o loading como falso após o login
         });
       }
     }
@@ -73,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Form(
-        key: _formKey,
+        key: _formKey, // Associa a chave global ao formulário
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -138,6 +144,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   bool isValidEmail(String email) {
-    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);  // Verifica se o email é válido
   }
 }
