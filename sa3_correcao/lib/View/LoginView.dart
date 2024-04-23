@@ -7,7 +7,8 @@ import 'package:sa3_correcao/View/TarefasView.dart';
 import '../Controller/BDController.dart';
 import '../Model/UserModel.dart';
 
-class LoginPage extends StatelessWidget {
+
+class LoginPage extends  StatefulWidget {
   const LoginPage({super.key});
 
   @override
