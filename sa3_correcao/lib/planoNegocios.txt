@@ -1,0 +1,15 @@
+- Pagina Login
+    - User / Senha (email/semha)
+    -Acessar (veriifcação do usuario) => Página Tarefas
+    - Cadastrar => Página de caadastro
+-Página de cadastro
+    -formulario(nome/email/senha)
+    -Cadastrar (verificar e-mail(unico), campos preenchidos) => tela login()
+-Pagina de Tarefas
+    -Lista de tarefas (por usuarios) - sharedPreferences
+    - Adicionar Novas Tarefas 
+    - Deletar tarefas    
+
+flutter pub add sqflite
+flutter pub add path
+flutter pub add shared_preferences
