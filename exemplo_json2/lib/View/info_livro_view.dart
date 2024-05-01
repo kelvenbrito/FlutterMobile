@@ -16,7 +16,7 @@ class LivroInfoPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Expanded(
             child: Column(
-               mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(info.capa),
             Text(info.titulo),

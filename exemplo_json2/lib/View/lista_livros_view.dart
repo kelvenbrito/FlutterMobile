@@ -1,4 +1,5 @@
-import 'package:exemplo_json2/Controller/livro_contoller.dart';
+import 'package:exemplo_json2/Controller/livro_controller.dart';
+
 import 'package:exemplo_json2/View/info_livro_view.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,7 @@ class _LivrosPageState extends State<LivrosPage> {
                         itemCount: controller.livros.length,
                         itemBuilder: (context, index) {
                           return ListTile(
+                            leading: Image.asset(controller.livros[index].capa),
                             title: Text(controller.livros[index].titulo),
                             subtitle: Text(controller.livros[index].autor),
                             onTap: () => Navigator.push(
