@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_json/View/cadastro_view.dart';
+import 'package:projeto_json/View/cadastro_carro_view.dart';
+
 import 'package:projeto_json/View/listar_carro_view.dart';
 
 

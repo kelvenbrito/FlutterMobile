@@ -13,7 +13,8 @@ class HomeScreenPage extends StatelessWidget {
         padding: EdgeInsets.all(12),
         child: Center(
           child: Column(
-              children: [
+           // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               ElevatedButton(onPressed:()=> Navigator.pushNamed(context, '/listar'), child: Text("Listar Carros")),
               SizedBox(height: 16),
               ElevatedButton(onPressed:()=> Navigator.pushNamed(context, '/cadastrar'), child: Text("Cadastrar Carro"))

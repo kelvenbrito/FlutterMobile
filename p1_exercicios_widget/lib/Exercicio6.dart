@@ -52,7 +52,7 @@ class ResponsiveLayout extends StatelessWidget {
       color: color,
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        //  mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
         
             Text(

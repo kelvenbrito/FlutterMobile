@@ -34,7 +34,7 @@ class ResponsiveHomePage extends StatelessWidget {
         child: Container(
           width: contentWidth * 0.8, // 80% da largura disponível
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+           // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'Seu conteúdo aqui!',

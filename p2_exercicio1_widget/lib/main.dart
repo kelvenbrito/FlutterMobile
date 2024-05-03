@@ -33,7 +33,7 @@ class Layout extends StatelessWidget {
           color: Color.fromARGB(255, 158, 44, 44),
           padding: EdgeInsets.all(20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
                 'Exercicio 6',

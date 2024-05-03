@@ -1,6 +1,14 @@
-//placa, modelo, marca, ano, cor, descricao, foto, valor
+//placa,
+//modelo,
+//marca,
+//ano,
+//cor,
+//descricao,
+//foto,
+//valor
 
 class Carro {
+  //atributos
   final String placa;
   final String modelo;
   final String marca;
@@ -9,7 +17,7 @@ class Carro {
   final String descricao;
   final String foto;
   final double valor;
-
+  //construtor
   Carro(
       {required this.placa,
       required this.modelo,
@@ -19,8 +27,7 @@ class Carro {
       required this.descricao,
       required this.foto,
       required this.valor});
-  //construtor
-  
+
   Map<String, dynamic> toJson() {
     return {
       'placa': placa,
@@ -45,6 +52,4 @@ class Carro {
       valor: map['valor'],
     );
   }
-
 }
-
