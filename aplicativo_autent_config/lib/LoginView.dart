@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+           // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LoginForm(),
               SizedBox(height: 16.0),
