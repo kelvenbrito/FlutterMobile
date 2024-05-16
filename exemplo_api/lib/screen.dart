@@ -1,5 +1,6 @@
-import 'dart:ffi';
+
 import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -21,7 +22,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         'https://api.openweathermap.org/data/2.5', // URL base da API de previsão do tempo.
   );
 
-  late Map<String,dynamic> _weatherData;
+  late Map<String, dynamic> _weatherData;
   TextEditingController _cityController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -29,9 +30,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _weatherData = new Map<String,dynamic>();
+    _weatherData = new Map<String, dynamic>();
   }
-
 
   @override
   void dispose() {
@@ -82,7 +82,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 children: [
                   Text('City: ${_weatherData['name']}'),
                   // Exibe o nome da cidade.
-                  Text('Temperature: ${(_weatherData['main']['temp']).toInt - 273} °C'),
+                  Text(
+                      'Temperature: ${(_weatherData['main']['temp'] - 273).toInt()} °C'),
+
                   // Exibe a temperatura em graus Celsius.
                   Text(
                       'Description: ${_weatherData['weather'][0]['description']}'),
