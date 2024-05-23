@@ -43,7 +43,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     try {
       final weatherData = await _weatherService.getWeather(city);
       setState(() {
-        _weatherData = weatherData;
+        _weatherData = weatherData;updat
       });
     } catch (e) {
       print(e);
