@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:projeto_api_geo/Model/city_model.dart';
 import 'package:projeto_api_geo/Service/city_db_service.dart';
 
 import '../Controller/weather_controller.dart';
+import '../Model/city_model.dart';
 import 'details_weather_screen.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -18,6 +18,15 @@ class _SearchScreenState extends State<SearchScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _cityController = TextEditingController();
   final CityDataBaseService _dbService = CityDataBaseService();
+  final List<City> _cityList =  [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _cityList = _dbService.getAllCities();
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +59,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                     child: const Text("Pesquisar"),
                   ),
-                  FutureBuilder(future: _dbService.getAllCities(), builder: (context,snapshot){
-                    
-                  }
-                  
-                  )
+                  FutureBuilder(
+                    future: _dbService.getAllCities(), 
+                    builder: (context,snapshot){
+                      if()
+                    })
                 ]))),
       ),
     );
@@ -63,7 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<void> _findCity(String city) async {
     if (await _controller.findCity(city)) {
       //snackbar
-      City cidade = City(cityName: city, favoriteCities:  false);
+      City cidade = City(cityName: city, favoriteCities: false);
       _dbService.insertCity(cidade);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
