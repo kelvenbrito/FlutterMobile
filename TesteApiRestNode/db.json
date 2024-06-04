@@ -3,35 +3,31 @@
     {
       "id": "1",
       "nome": "João",
-      "email": "joao@exemplo.com"
+      "email": "joao@email.com"
     },
     {
       "id": "2",
       "nome": "Maria",
-      "email": "maria@exemplo.com"
+      "email": "maria@email.com"
     },
     {
       "id": "3",
-      "nome": "Pedro",
-      "email": "pedro3@exemplo.com"
+      "nome": "pedro",
+      "email": "pedro@email.com"
     }
   ],
   "produtos": [
- {
-    "id": "1",
-    "nome": "Produto 1",
-    "preco": 100
-  },
-  {
-    "id": "2",
-    "nome": "Produto 2",
-    "preco": 200
-  },
-  {
-    "id": "3",
-    "nome": "Produto 3",
-    "preco": 300
-  }
-
+    {
+      "id": "1",
+      "nome": "Produto 1",
+      "codigo": "a1",
+      "preco": 100
+    },
+    {
+      "id": "2",
+      "nome": "Produto 2",
+      "codigo": "a2",
+      "preco": 200
+    }
   ]
 }
