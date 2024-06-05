@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "624524606851",
+    "project_id": "teste-firebase-noite-k",
+    "storage_bucket": "teste-firebase-noite-k.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624524606851:android:7adb4b0eb1a5c189a94ab6",
+        "android_client_info": {
+          "package_name": "br.com.kelven"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624524606851-6ffsu2s22rlnoolk38vpus7e0qstv63m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBExQTjGh9hPE-h7tqb19IvcqOMKtkGYUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624524606851-6ffsu2s22rlnoolk38vpus7e0qstv63m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
