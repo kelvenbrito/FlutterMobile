@@ -34,17 +34,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: 'E-mail',),
-                validator: (value) {},),
+                validator: (value) { if (value!.trim().isEmpty) {
+                              return "Insira o email";
+                            }
+                            return null;},),
                 TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(
                   labelText: 'Senha',),
-                validator: (value) {},),
+                validator: (value) { if (value!.trim().isEmpty) {
+                              return "Insira a senha";
+                            }
+                            return null;},),
                 TextFormField(
                 controller: _confirmedPasswordController,
                 decoration: const InputDecoration(
                   labelText: 'Confirmar Senha',),
-                validator: (value) {},),
+                validator: (value) { if (value!.trim().isEmpty) {
+                              return "Insira o email";
+                            }
+                            return null;},),
                 const SizedBox(height: 20,),
                 ElevatedButton(
                   onPressed: (){ _registrarUser();},
