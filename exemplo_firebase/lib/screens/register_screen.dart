@@ -64,13 +64,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
   
-  Future<User?> _registrarUser() async {
+  Future<void> _registrarUser() async {
     if(_formKey.currentState!.validate()){
       if(_passwordController.text==_confirmedPasswordController.text){
-        return await _service.registerUsuario(
+       await _service.registerUsuario(
           _emailController.text, 
           _confirmedPasswordController.text);
           //navegação para págian interna
+          Navigator.pushNamed(context, '\login');
       }else{
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -79,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
         _passwordController.clear();
         _confirmedPasswordController.clear();
-        return null;
+      
       }
     }
   }

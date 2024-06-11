@@ -1,18 +1,18 @@
 class Todolist {
   //atributos
-  final String id;
+  String id;
   final String titulo;
   final String userId;
   final DateTime timestamp;
 
-  Todolist({required this.id, required this.titulo, required this.userId, required this.timestamp});
+  Todolist({required this.titulo, required this.userId, required this.timestamp});
 
 // tomap
 Map<String, dynamic> toMap() {
   return {
     'id': id,
     'titulo': titulo,
-    'userId': userId,
+    'userid': userId,
     'timestamp': timestamp.toIso8601String(),
   };
 }
@@ -22,7 +22,7 @@ Map<String, dynamic> toMap() {
     return Todolist(
       id: map['id'],
       titulo: map['titulo'],
-      userId: map['userId'],
+      userId: map['userid'],
       timestamp: map['timestamp'],
     );
   }
