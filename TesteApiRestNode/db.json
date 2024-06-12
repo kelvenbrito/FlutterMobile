@@ -12,8 +12,8 @@
     },
     {
       "id": "3",
-      "nome": "pedro",
-      "email": "pedro@email.com"
+      "nome": "Pedro",
+      "email": "pedro3@exemplo.com"
     }
   ],
   "produtos": [
@@ -28,6 +28,56 @@
       "nome": "Produto 2",
       "codigo": "a2",
       "preco": 200
+    },
+    {
+      "id": "3",
+      "nome": "Produto3",
+      "codigo": "a3",
+      "preco": 100
+    },
+    {
+      "id": "4",
+      "nome": "Produto4",
+      "codigo": "a4",
+      "preco": 200
+    },
+    {
+      "id": "5",
+      "nome": "Produto5",
+      "codigo": "a5",
+      "preco": 200
+    },
+    {
+      "id": "3",
+      "nome": "produto3",
+      "codigo": "a3",
+      "preco": 300
+    },
+    {
+      "id": "3",
+      "nome": "produto3",
+      "codigo": "a3",
+      "preco": 300
+    },
+    {
+      "id": "8",
+      "nome": "produto7",
+      "codigo": "34",
+      "preco": 1200
+    }
+  ],
+  "audios":[
+    {
+      "id":"1",
+      "title":"The St. Louis Blues",
+      "artist": "W. C. Handy",
+      "url":"http://www.dominiopublico.gov.br/download/som/gu10249.mp3"
+    },
+    {
+      "id":"2",
+      "title":"New York Blues",
+      "artist": "Pietro Frosini",
+      "url":"http://www.dominiopublico.gov.br/download/som/gu10287.mp3"
     }
   ]
 }

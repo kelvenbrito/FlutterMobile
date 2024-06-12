@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'teste-firebase-noite-k',
     storageBucket: 'teste-firebase-noite-k.appspot.com',
   );
+
 }
