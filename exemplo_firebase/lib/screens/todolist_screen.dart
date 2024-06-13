@@ -1,6 +1,7 @@
-import 'package:exemplo_firebase/controllers/todolist_controller.dart';
-import 'package:exemplo_firebase/models/todolist.dart';
-import 'package:exemplo_firebase/services/auth_service.dart';
+
+import 'package:exemplo_firbbase/controllers/todolist_controller.dart';
+import 'package:exemplo_firbbase/models/todolist.dart';
+import 'package:exemplo_firbbase/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,11 @@ class _TodolistScreenState extends State<TodolistScreen> {
   final AuthService _service =AuthService();
   final TodolistController _controller =TodolistController();
   final _tituloController = TextEditingController();
+  bool _isList = false;
 
   Future<void> _getList() async{
     try {
       await _controller.fetchList(widget.user.uid);
-      setState(() {});
     } catch (e) {
       print(e.toString());
     }
@@ -43,7 +44,7 @@ class _TodolistScreenState extends State<TodolistScreen> {
             })]
       ),
       body: Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Center(
           child: Column(
             children: [
@@ -62,6 +63,9 @@ class _TodolistScreenState extends State<TodolistScreen> {
                               onPressed: () async {
                                 await _controller.delete(_controller.list[index].id);
                                 _getList();
+                                setState(() {
+                                  
+                                });
                               },
                             ),
                           );
@@ -80,6 +84,7 @@ class _TodolistScreenState extends State<TodolistScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
         onPressed: (){
           showDialog(
             context: context, 
@@ -109,6 +114,9 @@ class _TodolistScreenState extends State<TodolistScreen> {
                       );
                       _controller.add(add);
                       _getList();
+                      setState(() {
+                        
+                      });
                     })]);
             });
         })
