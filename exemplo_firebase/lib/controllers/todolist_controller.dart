@@ -37,5 +37,23 @@ class TodolistController{
     return _list;    
   }
 
-
+  //editar
+Future<void> update(Todolist task) async {
+  try {
+    await _firestore.collection('todolist').doc(task.id).update({
+      'titulo': task.titulo,
+      // Aqui você pode adicionar outros campos que deseja atualizar
+    });
+  } catch (e) {
+    // Trate qualquer erro que possa ocorrer durante a atualização
+    print("Erro ao atualizar tarefa: $e");
+    throw Exception("Erro ao atualizar tarefa");
+  }
 }
+
+  
+}
+
+  
+
+
