@@ -10,7 +10,7 @@ class ProdutosController{
     return _produtos;
   }
 
-  final String url = "http://10.109.204.15/produtos/";
+  final String url = "http://192.168.56.1/produtos/";
 
   Future<List<Produtos>> getProdutos() async{
     var response = await http.get(Uri.parse(url));

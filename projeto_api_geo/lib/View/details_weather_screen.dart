@@ -1,54 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_api_geo/Controller/weather_controller.dart';
-import 'package:projeto_api_geo/Service/city_db_service.dart';
-import '../Model/city_model.dart';
 
+// Tela para exibir os detalhes do clima de uma cidade
 class DetailsWeatherScreen extends StatefulWidget {
   final String city;
-  const DetailsWeatherScreen({Key? key, required this.city}) : super(key: key);
+
+  const DetailsWeatherScreen({super.key, required this.city});
 
   @override
   State<DetailsWeatherScreen> createState() => _DetailsWeatherScreenState();
 }
 
-class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> with SingleTickerProviderStateMixin {
+class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
   final WeatherController _controller = WeatherController();
-  final CityDataBaseService _dbService = CityDataBaseService();
-  late AnimationController _animationController;
-  late Animation<double> _animation;
-
-  bool isHistory = false;
-
-  @override
-  void initState() {
-    super.initState();
-    checkIfHistory();
-
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-
-    _animation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(_animationController);
-
-    _animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  Future<void> checkIfHistory() async {
-    List<City> cities = await _dbService.getAllCities();
-    setState(() {
-      isHistory = cities.any((city) => city.cityName == widget.city && city.historyCities);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,53 +23,81 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> with Single
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Center(
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return Opacity(
-                opacity: _animation.value,
-                child: child,
-              );
+          // FutureBuilder para gerenciar a busca dos dados de clima
+          child: FutureBuilder(
+            future: _controller.getWeather(widget.city),
+            builder: (context, snapshot) {
+              // Exibir indicador de carregamento enquanto aguarda os dados
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              }
+
+              // Tratar erros na requisição
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
+
+              // Quando os dados estão disponíveis, exibir os detalhes do clima
+              if (snapshot.hasData && _controller.weatherList.isNotEmpty) {
+                final weather = _controller.weatherList.last;
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Linha com o nome da cidade e um botão de favorito
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(weather.name),
+                        IconButton(
+                          icon: const Icon(Icons.favorite),
+                          onPressed: () {
+                            // TODO: Adicionar método para lidar com ação de favoritar
+                          },
+                        ),
+                      ],
+                    ),
+                    // Botão para exibir a temperatura
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.thermostat),
+                      label: Text((weather.temp - 273).toStringAsFixed(2) + '°C'),
+                    ),
+                    // Botão para exibir o tipo de clima principal
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(_getWeatherIcon(weather.main)),
+                      label: Text(weather.main),
+                    ),
+                    // Botão para exibir a descrição do clima
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.description),
+                      label: Text(weather.description),
+                    ),
+                  ],
+                );
+              }
+
+              // Se não houver dados disponíveis, exibir uma mensagem
+              return const Text('Não há dados disponíveis');
             },
-            child: FutureBuilder(
-              future: _controller.getWeather(widget.city),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Erro: ${snapshot.error}');
-                } else {
-                  final weather = _controller.weatherList.last;
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(weather.name),
-                          IconButton(
-                            icon: isHistory ? const Icon(Icons.history) : const Icon(Icons.favorite_border),
-                            onPressed: () async {
-                              setState(() {
-                                isHistory = !isHistory;
-                              });
-                              City cidade = City(cityName: widget.city, historyCities: isHistory);
-                              await _dbService.updateCity(cidade);
-                            },
-                          ),
-                        ],
-                      ),
-                      Text(_controller.translateMain(weather.main)),
-                      Text(_controller.translateDescription(weather.description)),  // Aqui chamamos o método de tradução
-                      Text((weather.temp - 273).toStringAsFixed(2)),
-                    ],
-                  );
-                }
-              },
-            ),
           ),
         ),
       ),
     );
+  }
+
+  // Método para obter o ícone correspondente ao tipo de clima
+  IconData _getWeatherIcon(String main) {
+    switch (main.toLowerCase()) {
+      case 'clear':
+        return Icons.wb_sunny;
+      case 'clouds':
+        return Icons.cloud;
+      case 'rain':
+        return Icons.beach_access;
+      default:
+        return Icons.help_outline;
+    }
   }
 }

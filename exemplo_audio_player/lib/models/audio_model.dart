@@ -4,14 +4,10 @@ class AudioModel {
   final String artist;
   final String url;
 
-  AudioModel({required this.title, required this.artist, required this.url});
+  AudioModel(this.title, this.artist, this.url);
 
   //fromMap
-  factory AudioModel.fromMap(Map<String, dynamic> map) {
-    return AudioModel(
-      title: map['title'],
-      artist: map['artist'],
-      url: map['url'],
-    );
+  factory AudioModel.fromJson(Map<String, dynamic> json) {
+    return new AudioModel(json['title'], json['artist'], json['url']);
   }
 }

@@ -1,30 +1,58 @@
 import 'package:projeto_api_geo/Model/city_model.dart';
 import 'package:projeto_api_geo/Service/city_db_service.dart';
 
+
 class CityDbController {
+  // Atributo
   List<City> _cities = [];
   final CityDataBaseService _dbService = CityDataBaseService();
 
-  List<City> cities() => _cities;
+  // Getter
+  List<City> get cities => _cities;
 
+  // Métodos
+  // Listar Cidades
   Future<List<City>> listCities() async {
-    List<Map<String, dynamic>> maps = (await _dbService.getAllCities()).cast<Map<String, dynamic>>();
-    _cities = maps.map<City>((e) => City.fromMap(e)).toList();
-    return _cities;
-  }
-
-  Future<void> addCities(City city) async {
-    _dbService.insertCity(city);
-  }
-
-  Future<void> addToFavorites(City city, Function() setStateCallback) async {
-    
-    await _dbService.updateCity(city);
-    // Atualiza a lista localmente
-    int index = _cities.indexWhere((element) => element.cityName == city.cityName);
-    if (index != -1) {
-      _cities[index] = city;
+    try {
+      List<Map<String, dynamic>> maps = await _dbService.getAllCities();
+      _cities = maps.map((map) {
+        try {
+          return City.fromMap(map);
+        } catch (e) {
+          // Log and handle the error for debugging
+          print("Error mapping city: $e");
+          return null;
+        }
+      }).where((city) => city != null).cast<City>().toList();
+      return _cities;
+    } catch (e) {
+      // Log and handle the error for debugging
+      print("Error listing cities: $e");
+      return [];
     }
-    setStateCallback(); // Chama o callback para atualizar o estado no widget pai
+  }
+
+  // Adicionar Cidade
+  Future<void> addCities(City city) async {
+    try {
+      await _dbService.insertCity(city);
+      // Atualizar lista local após inserção
+      await listCities();
+    } catch (e) {
+      // Log and handle the error for debugging
+      print("Error adding city: $e");
+    }
+  }
+
+  // Remover Cidade
+  Future<void> deleteCity(City city) async {
+    try {
+      await _dbService.deleteCity(city.cityName);
+      // Atualizar lista local após exclusão
+      await listCities();
+    } catch (e) {
+      // Log and handle the error for debugging
+      print("Erro ao excluir cidade: $e");
+    }
   }
 }
