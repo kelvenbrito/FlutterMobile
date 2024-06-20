@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:projeto_api_geo/Controller/weather_controller.dart';
+import 'package:projeto_api_geo/View/favoritos_screen.dart';
 
 // Tela principal para exibir a previsão do tempo
 class HomeScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // Obtém a posição atual do dispositivo
       Position position = await Geolocator.getCurrentPosition();
       // Obtém a previsão do tempo para a localização atual
-      await _controller.getWeatherbyLocation(
+      await _controller.getWeatherByLocation(
         position.latitude, position.longitude
       );
       setState(() {});
@@ -62,7 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 // Botão para exibir os favoritos
                 ElevatedButton(
-                  onPressed: () {}, 
+                  onPressed: () {
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => FavoritesScreen(),
+                      ),
+                    );
+                  }, 
                   child: const Text("Favoritos")
                 ),
               ],
