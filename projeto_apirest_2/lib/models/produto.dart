@@ -1,9 +1,9 @@
 class Produto {
   //atributos
   final String id;
-  final String nome;
-  final String codigo;
-  final double preco;
+  late final String nome;
+  late final String codigo;
+  late final double preco;
 
   Produto({required this.id, required this.nome, required this.codigo, required this.preco});
   
