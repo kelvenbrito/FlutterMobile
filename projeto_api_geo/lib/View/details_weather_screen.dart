@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_api_geo/Controller/weather_controller.dart';
+import 'package:projeto_api_geo/Model/weather_model.dart';
+import 'package:projeto_api_geo/View/favoritos_screen.dart';
 
-// Tela para exibir os detalhes do clima de uma cidade
 class DetailsWeatherScreen extends StatefulWidget {
   final String city;
 
-  const DetailsWeatherScreen({super.key, required this.city});
+  const DetailsWeatherScreen({Key? key, required this.city}) : super(key: key);
 
   @override
   State<DetailsWeatherScreen> createState() => _DetailsWeatherScreenState();
@@ -15,43 +16,51 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
   final WeatherController _controller = WeatherController();
 
   @override
+  void initState() {
+    super.initState();
+    _loadWeather();
+  }
+
+  void _loadWeather() async {
+    await _controller.getWeather(widget.city);
+    setState(() {}); // Atualiza a UI após obter os dados do clima
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalhes'),
+        title: Text('Detalhes - ${widget.city}'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Center(
-          // FutureBuilder para gerenciar a busca dos dados de clima
-          child: FutureBuilder(
-            future: _controller.getWeather(widget.city),
-            builder: (context, snapshot) {
-              // Exibir indicador de carregamento enquanto aguarda os dados
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
-
-              // Tratar erros na requisição
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              }
-
-              // Quando os dados estão disponíveis, exibir os detalhes do clima
-              if (snapshot.hasData && _controller.weatherList.isNotEmpty) {
-                final weather = _controller.weatherList.last;
-                return Column(
+          child: _controller.weatherList.isEmpty
+              ? CircularProgressIndicator() // Exibe indicador de carregamento enquanto não há dados
+              : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Linha com o nome da cidade e um botão de favorito
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(weather.name),
+                        Text(_controller.weatherList.last.name),
                         IconButton(
-                          icon: const Icon(Icons.favorite),
+                          icon: _controller.favoriteCities.contains(widget.city)
+                              ? Icon(Icons.favorite,
+                                  color: Colors
+                                      .red) // Ícone de favorito vermelho se a cidade estiver nos favoritos
+                              : Icon(Icons
+                                  .favorite_border), // Ícone de favorito não preenchido se a cidade não estiver nos favoritos
                           onPressed: () {
-                            // TODO: Adicionar método para lidar com ação de favoritar
+                            if (_controller.favoriteCities
+                                .contains(widget.city)) {
+                              _controller.removeFromFavorites(widget.city);
+                            } else {
+                              _controller.addToFavorites(widget.city);
+                            }
+                            setState(
+                                () {}); // Atualiza a UI após adicionar ou remover dos favoritos
                           },
                         ),
                       ],
@@ -60,28 +69,38 @@ class _DetailsWeatherScreenState extends State<DetailsWeatherScreen> {
                     ElevatedButton.icon(
                       onPressed: () {},
                       icon: const Icon(Icons.thermostat),
-                      label: Text((weather.temp - 273).toStringAsFixed(2) + '°C'),
+                      label: Text((_controller.weatherList.last.temp - 273)
+                              .toStringAsFixed(2) +
+                          '°C'),
                     ),
                     // Botão para exibir o tipo de clima principal
                     ElevatedButton.icon(
                       onPressed: () {},
-                      icon: Icon(_getWeatherIcon(weather.main)),
-                      label: Text(weather.main),
+                      icon: Icon(
+                          _getWeatherIcon(_controller.weatherList.last.main)),
+                      label: Text(_controller.weatherList.last.main),
                     ),
                     // Botão para exibir a descrição do clima
                     ElevatedButton.icon(
                       onPressed: () {},
                       icon: const Icon(Icons.description),
-                      label: Text(weather.description),
+                      label: Text(_controller.weatherList.last.description),
+                    ),
+
+                    IconButton(
+                      icon: Icon(Icons.star),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                FavoritesScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
-                );
-              }
-
-              // Se não houver dados disponíveis, exibir uma mensagem
-              return const Text('Não há dados disponíveis');
-            },
-          ),
+                ),
         ),
       ),
     );

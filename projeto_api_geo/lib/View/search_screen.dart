@@ -1,14 +1,11 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:projeto_api_geo/Controller/city_db_controller.dart';
-
 import '../Controller/weather_controller.dart';
 import '../Model/city_model.dart';
 import 'details_weather_screen.dart';
-// Tela de pesquisa
+
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -43,9 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         return null;
                       },
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
@@ -54,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                       child: const Text("Procurar"),
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -88,36 +83,33 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Future<void> _findCity(String city) async {
-    if (await _controller.findCity(city)) {
-      // Se a cidade for encontrada, exibe uma snackbar informativa e salva a cidade no banco de dados local.
-      City cidade = City(cityName: city, favoriteCities: 0);
-      _dbController.addCities(cidade);
-      print("ok");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Cidade encontrada!"),
-          duration: Duration(seconds: 1),
-        ),
-      );
-      setState(() {
-        // Atualiza o estado para refletir a adição da nova cidade.
-      });
-      // Navega para a tela de detalhes do clima para a cidade encontrada.
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => DetailsWeatherScreen(city: city),
-        ),
-      );
-    } else {
-      // Se a cidade não for encontrada, exibe uma snackbar informativa.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Cidade não encontrada!"),
-          duration: Duration(seconds: 2),
-        ),
-      );
-    }
+Future<void> _findCity(String city) async {
+  bool cityFound = await _controller.findCity(city); // Aguarda o resultado do método findCity
+  if (cityFound) {
+    City cidade = City(cityName: city, favoriteCities: 0);
+    _dbController.addCities(cidade);
+    print("ok");
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Cidade encontrada!"),
+        duration: Duration(seconds: 1),
+      ),
+    );
+    setState(() {});
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => DetailsWeatherScreen(city: city),
+      ),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Cidade não encontrada!"),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
+}
+
 }
